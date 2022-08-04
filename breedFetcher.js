@@ -1,14 +1,29 @@
 const request = require('request');
-const fs = require('fs');
-const args = process.argv.slice(2); 
+const args = process.argv.slice(2);
+const url = `https://api.thecatapi.com/v1/breeds/search?q=${args}`;
 
-request(`https://api.thecatapi.com/v1/breeds/search?q=${args}`, (error, response, body) => {
+request(url, (error, response, body) => {
   const data = JSON.parse(body);
-  let description = data[0].description;
-
   if (error) {
-    console.log('error');
+    console.log('Error: ', error);
+  } else if (data.length === 0)  {
+    console.log("There has been an error. Please try again.");
   } else {
+    let description = data[0].description;
     console.log(description);
   }
-})
+});
+
+
+
+
+
+
+
+
+
+
+/*
+A little more scaffolding would have been helpful while working on the assignment. I really struggled with the last part and trying to have a user type in just the cat name to find a breed description.
+
+*/
